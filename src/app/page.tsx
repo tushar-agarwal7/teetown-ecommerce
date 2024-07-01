@@ -58,7 +58,7 @@ export default async function Home() {
                       src='/line.png'
                       className='absolute w-24 -left-6 -bottom-6 select-none'
                     />
-                    <Tshirt tshirt='tshirt.png' imgSrc='/1.jpg' />
+                    <Tshirt tshirt='tshirt.png' imgSrc='/me-2.png' />
                   </div>
                 </div>
               </div>
