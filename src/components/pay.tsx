@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "./ui/button";
+import { useRouter } from "next/navigation";
 
 export default function Pay() {
   const [cardNumber, setCardNumber] = useState("");
@@ -12,6 +13,8 @@ export default function Pay() {
   const [cvv, setCvv] = useState("");
   const [billingAddress, setBillingAddress] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [isPending, setIsPending] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     if (cardNumber && expiration && cvv && billingAddress) {
@@ -20,6 +23,14 @@ export default function Pay() {
       setIsButtonDisabled(true);
     }
   }, [cardNumber, expiration, cvv, billingAddress]);
+
+  const handlePay = () => {
+    setIsPending(true);
+    setTimeout(() => {
+      router.push('/thank-you');
+      setIsPending(false);
+    }, 5000);
+  };
 
   return (
     <div className="flex min-h-[70vh] flex-col items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8">
@@ -79,8 +90,14 @@ export default function Pay() {
               />
             </div>
             <div className="space-y-2">
-              <Button className="w-full" disabled={isButtonDisabled}>
-                Pay Now
+              <Button
+                className="w-full"
+                isLoading={isPending}
+                loadingText="Processing..."
+                disabled={isButtonDisabled || isPending}
+                onClick={handlePay}
+              >
+                {isPending ? 'Processing...' : 'Pay Now'}
               </Button>
             </div>
           </CardContent>
