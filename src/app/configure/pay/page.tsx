@@ -1,5 +1,6 @@
 import Pay from "@/components/pay"
 
+
 const page = () => {
   return (
     <div>
